@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "首页";
+}
+<div class="page-container">
+	<p class="f-20 text-success">欢迎使用顶固后台管理系统 <span class="f-14">v1.0</span></p>
+	<p>登录次数：@ViewBag.LoginCount </p>
+	<p>上次登录IP：@ViewBag.lastloginIp  上次登录时间：@ViewBag.lastlogindate</p>
+	<table class="table table-border table-bordered table-bg mt-20">
+		<thead>
+			<tr>
+				<th colspan="2" scope="col">系统日志</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="width:10%;">2018/11/13 </td>
+				<td>系统框架基本搭建完成</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

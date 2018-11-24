@@ -1,0 +1,11 @@
+F:\Project\WebPrint\Easy4net\bin\Debug\Easy4net.dll
+F:\Project\WebPrint\Easy4net\bin\Debug\Easy4net.pdb
+F:\Project\WebPrint\Easy4net\bin\Debug\mysql.data.dll
+F:\Project\WebPrint\Easy4net\obj\Debug\Easy4net.csprojResolveAssemblyReference.cache
+F:\Project\WebPrint\Easy4net\obj\Debug\Easy4net.dll
+F:\Project\WebPrint\Easy4net\obj\Debug\Easy4net.pdb
+F:\网站\TopStrong\Easy4net\bin\Debug\Easy4net.dll
+F:\网站\TopStrong\Easy4net\bin\Debug\Easy4net.pdb
+F:\网站\TopStrong\Easy4net\bin\Debug\mysql.data.dll
+F:\网站\TopStrong\Easy4net\obj\Debug\Easy4net.dll
+F:\网站\TopStrong\Easy4net\obj\Debug\Easy4net.pdb
