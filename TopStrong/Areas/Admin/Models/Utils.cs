@@ -29,6 +29,19 @@ namespace TopStrong.Areas.Admin.Models
     {
 
         /// <summary>
+        /// 压缩图片
+        /// </summary>
+        /// <param name="thumbImage"></param>
+        public static void Picresize(WebImage thumbImage)
+        {
+            if (thumbImage.Width > 1000 && thumbImage.Height > 1000)
+            {
+                thumbImage.Resize(thumbImage.Width / 2, thumbImage.Height / 2, true);
+                Picresize(thumbImage);
+            }
+        }
+
+        /// <summary>
         /// RSA加密
         /// </summary>
         /// <param name="express"></param>

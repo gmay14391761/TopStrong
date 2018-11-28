@@ -17,7 +17,8 @@ namespace TopStrong.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "Iframe", action = "Index", id = UrlParameter.Optional },
+                new string[] { "TopStrong.Areas.Admin.Controllers" }
             );
         }
     }
