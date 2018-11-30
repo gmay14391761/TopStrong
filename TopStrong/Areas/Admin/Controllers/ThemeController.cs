@@ -62,10 +62,11 @@ namespace TopStrong.Areas.Admin.Controllers
             T_Theme theme = new T_Theme();
             if (!string.IsNullOrWhiteSpace(ID))
             {
-                theme = db.FindOneByID<T_Theme>("T_Adv", ID);
+                theme = db.FindOneByID<T_Theme>("T_Theme", ID);
             }
             else
             {
+                theme.ID = Guid.NewGuid().ToString();
                 theme.CREATEDATE = DateTime.Now;
             }
             theme.ThemeName = ThemeName;
@@ -96,7 +97,7 @@ namespace TopStrong.Areas.Admin.Controllers
             DBHelper db = DBHelper.getInstance();
             try
             {
-                string sql = string.Format("Update T_Theme set Deleted=1 where ID='{0}'", id);
+                string sql = string.Format("Update T_Theme set Deleted=1 where ID='{0}'", id.ToUpper());
                 db.ExcuteSQL(sql);
                 return Content("1");
             }

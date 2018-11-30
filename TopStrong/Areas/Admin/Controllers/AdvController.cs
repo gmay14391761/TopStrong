@@ -17,7 +17,7 @@ namespace TopStrong.Areas.Admin.Controllers
         //
         // GET: /Admin/Adv/
 
-        public ActionResult Index(string keyword = "", string seladvtype="", int page = 1, int limit = 10)
+        public ActionResult Index(string keyword = "", string selAdvLink="", int page = 1, int limit = 10)
         {
 
             DBHelper db = DBHelper.getInstance();
@@ -25,8 +25,8 @@ namespace TopStrong.Areas.Admin.Controllers
             keyword = Utils.SqlTextClear(keyword);
             if (keyword != "")
                 strWhere = string.Format(" and (AdvTitle like '%{0}%')", keyword);
-            if (seladvtype != "")
-                strWhere = string.Format(" and (AdvType={0})", seladvtype);
+            if (selAdvLink != "")
+                strWhere = string.Format(" and (AdvLink={0})", selAdvLink);
             string sql = string.Format("select * from T_Adv where Deleted=0 {0}", strWhere);
             ParamMap param = ParamMap.newMap();
             param.setPageParamters(page, limit);
@@ -40,7 +40,7 @@ namespace TopStrong.Areas.Admin.Controllers
                 }
             }
             ViewBag.key = keyword;
-            ViewBag.seladvtype = seladvtype;
+            ViewBag.selAdvLink = selAdvLink;
             return View(pageResult);
         }
 
@@ -63,7 +63,7 @@ namespace TopStrong.Areas.Admin.Controllers
             string ID = Utils.SqlTextClear(Request["ID"].ToString());
             string AdvTitle = Utils.SqlTextClear(Request.Form["AdvTitle"].ToString());
             string AdvImg = Utils.SqlTextClear(Request.Form["AdvImg"].ToString());
-            string AdvType = Utils.SqlTextClear(Request.Form["AdvType"].ToString());
+            string AdvLink = Utils.SqlTextClear(Request.Form["AdvLink"].ToString());
             string AdvContent = Utils.SqlTextClear(Request.Form["txtcontent"].ToString());
             string Sort = Utils.SqlTextClear(Request.Form["Sort"].ToString());
             T_Adv adv = new T_Adv();
@@ -73,11 +73,12 @@ namespace TopStrong.Areas.Admin.Controllers
             }
             else
             {
+                adv.ID = Guid.NewGuid().ToString();
                 adv.CREATEDATE = DateTime.Now;
             }
             adv.AdvTitle = AdvTitle;
             adv.AdvImg = AdvImg;
-            adv.AdvType = Convert.ToInt32(AdvType);
+            adv.AdvLink = AdvLink;
             adv.SORT = Convert.ToInt16(Sort == "" ? "0" : Sort);
             adv.AdvDetail = AdvContent;
             try

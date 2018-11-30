@@ -14,3 +14,11 @@ F:\网站\TopStrong\Model\bin\Debug\Easy4net.pdb
 F:\网站\TopStrong\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
 F:\网站\TopStrong\Model\obj\Debug\Model.dll
 F:\网站\TopStrong\Model\obj\Debug\Model.pdb
+E:\mo\TopStrong\Model\bin\Debug\Model.dll
+E:\mo\TopStrong\Model\bin\Debug\Model.pdb
+E:\mo\TopStrong\Model\bin\Debug\Easy4net.dll
+E:\mo\TopStrong\Model\bin\Debug\MySql.Data.dll
+E:\mo\TopStrong\Model\bin\Debug\Easy4net.pdb
+E:\mo\TopStrong\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+E:\mo\TopStrong\Model\obj\Debug\Model.dll
+E:\mo\TopStrong\Model\obj\Debug\Model.pdb

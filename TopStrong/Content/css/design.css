@@ -1,0 +1,64 @@
+﻿.sjmain img {
+    width: 100%;
+}
+
+.msgmain {
+    margin: 20px;
+    background-color: #fff;
+    padding-bottom: 20px;
+    box-shadow: 10px 10px 5px #e9e8e9;
+    border-radius: 5px;
+}
+
+.inputtxt {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}
+
+    .inputtxt input {
+        border: 0px;
+    }
+
+.btncode {
+    background-color: #64cbc7;
+    border-radius: 5px;
+    color: #fff;
+    width: 30%;
+}
+
+.box_left {
+    overflow: hidden;
+    color: #666;
+    margin: 10px;
+}
+
+.box_right {
+    display: flex;
+    justify-content: space-around;
+}
+
+    .box_right div {
+        background: url("/Content/Image/box_bg.png") no-repeat;
+        background-size: 100% 100%;
+        padding: 3px 15px;
+    }
+
+        .box_right div.ed {
+            color: #fff;
+            background: url(/Content/Image/box_bg_ed.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+.btnmain {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btnsumbit {
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+    line-height: 35px;
+    background-color: #64cbc7;
+    border-radius: 5px;
+}

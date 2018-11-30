@@ -24,10 +24,13 @@
                 <input type="text" class="input-text" value="@Model.ThemeSort" placeholder="" id="" name="ThemeSort">
             </div>
         </div>
-         <div class="row cl" style="display:none">
+        <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">类型：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="0" placeholder="" id="" name="ThemeType">
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="ThemeType" type="radio" id="ThemeType-1" value="1" checked="" /><label for="ThemeType-1">列表</label>
+                    <input style="margin-left: 20px;" name="ThemeType" type="radio" id="ThemeType-2" value="0" /><label for="ThemeType-2">图片</label>
+                </div>
             </div>
         </div>
         <div class="row cl">

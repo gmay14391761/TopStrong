@@ -140,6 +140,7 @@
     <Compile Include="Areas\Admin\Controllers\IframeController.cs" />
     <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThemeController.cs" />
     <Compile Include="Areas\Admin\Models\AdminLoginAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Models\Utils.cs" />
@@ -151,6 +152,9 @@
     <Compile Include="Content\ui\lib\ueditor\1.4.3\net\App_Code\NotSupportedHandler.cs" />
     <Compile Include="Content\ui\lib\ueditor\1.4.3\net\App_Code\PathFormater.cs" />
     <Compile Include="Content\ui\lib\ueditor\1.4.3\net\App_Code\UploadHandler.cs" />
+    <Compile Include="Controllers\DesignController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,6 +166,18 @@
     <Content Include="Areas\Admin\UI\Css\style.css" />
     <Content Include="Areas\Admin\UI\images\8bcLQqF.png" />
     <Content Include="Areas\Admin\UI\images\cloud.jpg" />
+    <Content Include="Content\css\design.css" />
+    <Content Include="Content\Image\box_bg_ed.png" />
+    <Content Include="Content\Image\box_bg.png" />
+    <Content Include="Content\Image\home.png" />
+    <Content Include="Content\Image\home2.png" />
+    <Content Include="Content\Image\sj2.png" />
+    <Content Include="Content\Image\sj.png" />
+    <Content Include="Content\Image\top_1.jpg" />
+    <Content Include="Content\css\index.css" />
+    <Content Include="Content\swiper\swiper.css" />
+    <Content Include="Content\swiper\swiper.js" />
+    <Content Include="Content\swiper\swiper.min.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1274,6 +1290,8 @@
     <Content Include="Areas\Admin\Views\Index\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Theme\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Theme\EditTheme.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\News\EditNews.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -1301,9 +1319,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Index\Index.cshtml" />
+    <Content Include="Views\Design\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="UpLoad\" />
   </ItemGroup>

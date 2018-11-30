@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var AdvList = ViewBag.AdvList as List<Entity.T_Adv>;
+    var ThemeList = ViewBag.ThemeList as List<Entity.T_Theme>;
+}
+@model List<Model.NewModel.ThemeNews>
+<link href="/Content/css/index.css" rel="stylesheet" />
+<script src="/Content/swiper/swiper.js"></script>
+<link href="/Content/swiper/swiper.css" rel="stylesheet">
+<link href="/Content/swiper/swiper.min.css" rel="stylesheet">
+@if (AdvList != null && AdvList.Count > 0)
+{
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            @foreach (var item in AdvList)
+            {
+                <div class="swiper-slide" style="width: 640px;">
+                    <a href="@item.AdvLink">
+                        <img src="/upload/@item.AdvImg" border="0" style="width: 100%;"></a>
+                </div>
+            }
+
+        </div>
+        <div class="swiper-pagination"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div>
+    </div>
+}
+@if (ThemeList != null && ThemeList.Count > 0)
+{
+    <div class="ThemeMain">
+        @foreach (var item in ThemeList)
+        {
+            <a href="#">
+                <img src="/UpLoad/@item.ThemeImg" />
+            </a>
+        }
+    </div>
+}
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+    <div class="ThemeList">
+        <div class="title">
+            <div class="title-left">
+                <i></i><span>@item.ThemeName</span>
+            </div>
+            <div class="title-right">更多></div>
+        </div>
+        @if (item.News != null && item.News.Count > 0)
+        {
+            foreach (var item2 in item.News)
+            {
+            <div class="newslist">
+                <img src="/UpLoad/@item2.NewsImg"/>
+                <div class="newslist-txt">@item2.NewsTitle</div>
+            </div>
+            }
+        }
+    </div>
+    }
+}
+<script>
+    $(function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: 5000,//可选选项，自动滑动
+            pagination: '.swiper-pagination'
+        })
+    });
+</script>

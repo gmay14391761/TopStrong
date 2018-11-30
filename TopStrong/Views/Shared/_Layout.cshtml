@@ -19,20 +19,7 @@
 <script type="text/javascript" src="~/Content/ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-    @RenderSection("head", false)
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    
-        @RenderBody()
-   
-    <footer class="footer mt-20">
-        <div class="container">
-            <p>
-                本后台系统由广州桌速网络科技提供技术支持
-            </p>
-        </div>
-    </footer>
+
 
     <!--_footer 作为公共模版分离出去-->
     <script type="text/javascript" src="~/Content/ui/lib/jquery/1.9.1/jquery.min.js"></script>
@@ -40,6 +27,115 @@
     <script type="text/javascript" src="~/Content/ui/lib/layer/2.4/layer.js"></script>
     <script type="text/javascript" src="~/Content/ui/static/h-ui.admin/js/H-ui.admin.js"></script>
     <!--/_footer 作为公共模版分离出去-->
-     @RenderSection("scripts", required: false)
+    @RenderSection("head", false)
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            max-width: 640px;
+            min-width: 320px;
+            margin: 0 auto;
+        }
+
+        .layout_bottom {
+            width: 100%;
+            height: 45px;
+            background-color: #fff;
+            border-top: 1px solid #d0d0d0;
+            position: fixed;
+            bottom: 0px;
+            left: 0;
+        }
+
+        .layout_bottomleft {
+            width: 50%;
+            height: 45px;
+            float: left;
+            padding-top: 5px;
+        }
+
+        .layoutbox_top {
+            width: 100%;
+            height: 22px;
+            text-align: center;
+        }
+
+        .layoutbox_bottom {
+            width: 100%;
+            height: 18px;
+            font-size: 8px;
+            text-align: center;
+            color: #333;
+        }
+
+        .layoutimg {
+            width: 20px;
+            height: 20px;
+        }
+
+        A:link {
+            text-decoration: none;
+            color: white;
+        }
+
+        A:visited {
+            text-decoration: none;
+            color: white;
+        }
+
+        A:hover {
+            text-decoration: underline;
+            color: white;
+        }
+
+        A:active {
+            text-decoration: underline;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    @RenderBody()
+
+    @*<footer class="footer mt-20">
+        <div class="container">
+            <p>
+                本后台系统提供技术支持
+            </p>
+        </div>
+    </footer>*@
+
+    <div class="layout_bottom">
+        <a href="/Index" id="a_tran">
+            <div class="layout_bottomleft">
+                <div class="layoutbox_top">
+                    <img src="~/Content/Image/home2.png" class="layoutimg" />
+                </div>
+                <div class="layoutbox_bottom">首页</div>
+            </div>
+        </a>
+        <a href="/Design">
+            <div class="layout_bottomleft">
+                <div class="layoutbox_top">
+                    <img src="~/Content/Image/sj2.png" class="layoutimg" />
+                </div>
+                <div class="layoutbox_bottom">0元设计</div>
+            </div>
+        </a>
+    </div>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>
+<script>
+    var str = document.title;
+    if (str.indexOf('首页') >= 0) {
+        $(".layoutimg").eq(0).attr({ "src": "/Content/Image/home.png" });
+        $(".layoutbox_bottom").eq(0).css({ "color": "#30c2b0" });
+    }
+    else if (str.indexOf('设计') >= 0) {
+        $(".layoutimg").eq(1).attr({ "src": "/Content/Image/sj.png" });
+        $(".layoutbox_bottom").eq(1).css({ "color": "#30c2b0" });
+    }
+</script>

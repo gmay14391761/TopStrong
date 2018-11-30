@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "编辑文章";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var themeList = ViewBag.themeList as List<Entity.T_Theme>;
+}
+
+@model Entity.T_News
+
+<div class="page-container">
+    @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { @class = "form form-horizontal", @onsubmit = "return setContent()" }))
+    {
+        @Html.AntiForgeryToken()
+        <input id="id" name="id" type="hidden" value="@Model.ID" />
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@Model.NewsTitle" placeholder="" id="" name="NewsTitle">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>类型：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <span class="select-box">
+                    <select name="" class="select">
+                        @if (themeList != null && themeList.Count > 0)
+                        {
+                            foreach (var item in themeList)
+                            {
+                                <option @(item.ID==Model.NewsType?"selected":"") value="@item.ID">@item.ThemeName</option>
+                            }
+                        }
+                    </select>
+                </span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">排序值：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@Model.SORT" placeholder="" id="" name="Sort">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">封面图</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="button" value="上传图片" class="btn btn-primary radius" onclick="fileupload()" />
+                <span onclick="selpic()" id="fileloadmsg">未选择图片...</span>
+                <div style="width: 100%; height: 100px;" id="imgs">
+                    @{
+                        if (@Model.NewsImg != null && @Model.NewsImg != "")
+                        {
+                        <img src="../../../Upload/@Model.NewsImg" id="imgdemo" onclick="imgPreview(&quot;imgdemo&quot;)" tips="点击查看大图" style="width: 120px;height: 70px;margin-top: 10px;" layer-pid="imgtest" layer-index="0">
+                        }
+                    }
+                </div>
+            </div>
+            <input type="file" id="fileUpload" name="fileUpload" style="display: none;" />
+            <input type="hidden" value="@Model.NewsImg" id="filename" name="NewsImg" />
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">详细内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <script id="editor" type="text/plain" style="width: 100%; height: 400px;"></script>
+            </div>
+            <input type="hidden" id="txtcontent" name="txtcontent" value="@Model.NewsDetail" />
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button onclick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <button onclick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    }
+</div>
+
+<!--请在下方写此页面业务相关的脚本-->
+@section scripts{
+    <script type="text/javascript" src="~/Content/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="~/Content/ui/lib/webuploader/0.1.5/webuploader.min.js"></script>
+    <script type="text/javascript" src="~/Content/ui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" src="~/Content/ui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+    <script type="text/javascript" src="~/Content/ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+    <script src="~/Content/ui/lib/layer/2.4/layer.img.preview.js"></script>
+    <script type="text/javascript">
+        var test = 0;
+        $(function () {
+            var editor = UE.getEditor('editor');
+            var shellId = 'editor';
+            editor.ready(function () {
+                editor.setContent(decodeURIComponent("@Model.NewsDetail"));
+                $('#' + shellId + ' #edui1mo_toolbarbox').css('display', 'none');
+                editor.addListener("contentChange", function (e) {
+                    fn();
+                });
+                //var $textarea = $('#' + shellId + '').parent().find('iframe').contents();
+
+                var fn = function () {
+                    $("input[name='txtcontent']").val(encodeURIComponent(editor.getContent()));
+                }
+
+                //if (document.all) {
+                //    $textarea.get(0).attachEvent('onpropertychange', function (e) {
+                //        fn();
+                //    });
+                //} else {
+                //    $textarea.on('input', fn);
+                //}
+            });
+
+        });
+
+        //function selpic()
+        //{
+
+
+        //    //layer.close(index);
+        //}
+
+        function fileupload() {
+            $("#fileUpload").attr({ "onchange": "CardImgUpload()" });
+            $("#fileUpload").click();
+        }
+
+
+        function CardImgUpload() {
+            var pic = $('#fileUpload')[0].files[0];
+            var fd = new FormData();
+            fd.append('file', pic);
+            $.ajax({
+                url: "/admin/FileUpload",
+                type: "post",
+                // Form数据
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.indexOf('.jpg') > 0 || data.indexOf('.png') > 0 || data.indexOf('.gif') > 0 || data.indexOf('.bmp') > 0) {
+                        $("#fileloadmsg").text(data);
+                        $("#fileloadmsg").attr({ "href": "../../../Upload/" + data });
+                        $("#imgs").html("<img src='../../../Upload/" + data + "' id='imgdemo' onclick='imgPreview(\"imgdemo\")' tips='点击查看大图' style='width: 120px;height: 70px;margin-top: 10px;' layer-pid='imgtest' layer-index='0'/>");
+                        $("#filename").val(data);
+                    }
+                    else
+                        alert(data);
+                }
+            });
+        }
+    </script>
+}

@@ -14,16 +14,6 @@
         <div class="text-c">
 
             <input type="text" name="keyword" value="@key" id="" placeholder=" 标题" style="width: 250px" class="input-text">
-            <span class="select-box" style="width: 200px">
-                <select class="select" name="seladvtype" size="1">
-                    <option value="" @(@seladvtype == "" ? "selected" : "")>请选择</option>
-                    <option value="0" @(@seladvtype == "0" ? "selected" : "")>广告</option>
-                    <option value="1" @(@seladvtype == "1" ? "selected" : "")>公告</option>
-                    <option value="2" @(@seladvtype == "2" ? "selected" : "")>文章</option>
-                    <option value="3" @(@seladvtype == "3" ? "selected" : "")>用户协议</option>
-                    <option value="4" @(@seladvtype == "4" ? "selected" : "")>关于我们</option>
-                </select>
-            </span>
             <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
         </div>
     }
@@ -39,7 +29,6 @@
                     <th width="25">
                         <input type="checkbox" name="" value=""></th>
                     <th width="80">排序</th>
-                    <th width="80">类型</th>
                     <th>标题</th>
                     <th width="80">创建时间</th>
                     <th width="80">图片</th>
@@ -55,7 +44,6 @@
                         <td>
                             <input type="checkbox" value="@item.ID" name="cbadv"></td>
                         <td>@item.SORT</td>
-                        <td>@(item.AdvType == 0 ? "广告" : (item.AdvType == 1 ? "公告" : (item.AdvType == 2 ? "文章" : (item.AdvType == 3 ? "用户协议" : "关于我们"))))</td>
                         <td>@item.AdvTitle</td>
                         <td>@item.CREATEDATE</td>
                         <td>

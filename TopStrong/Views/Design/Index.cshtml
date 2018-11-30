@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "0元设计";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var AdvList = ViewBag.AdvList as List<Entity.T_Adv>;
+}
+
+<link href="/Content/css/design.css" rel="stylesheet" />
+<script src="/Content/swiper/swiper.js"></script>
+<link href="/Content/swiper/swiper.css" rel="stylesheet">
+<link href="/Content/swiper/swiper.min.css" rel="stylesheet">
+@if (AdvList != null && AdvList.Count > 0)
+{
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            @foreach (var item in AdvList)
+            {
+                <div class="swiper-slide" style="width: 640px;">
+                    <a href="@item.AdvLink">
+                        <img src="/upload/@item.AdvImg" border="0" style="width: 100%;"></a>
+                </div>
+            }
+
+        </div>
+        <div class="swiper-pagination"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div>
+    </div>
+    <div class="sjmain">
+        <img src="~/Content/Image/top_1.jpg" />
+    </div>
+}
+
+<div class="msgmain">
+    <div class="inputtxt">
+        <input class="txtone" type="text" placeholder="请输入姓名" /><br />
+    </div>
+    <div class="inputtxt">
+        <input class="txtone" type="text" placeholder="请输入手机号" />
+    </div>
+    <div class="inputtxt">
+        <input class="txtone" style="width: 67%" type="text" placeholder="请输入验证码" />
+        <input class="btncode" style="line-height: 26px!important;" type="button" value="获取验证码" />
+    </div>
+    <div class="box_left">
+        <div>需求选择：</div>
+    </div>
+    <div class="box_right">
+        <div class="ed">衣柜</div>
+        <div>橱柜</div>
+        <div>木门</div>
+        <div>窗帘</div>
+    </div>
+    <div class="btnmain">
+        <a href="#" class="btnsumbit">抢0元设计</a>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: 5000,//可选选项，自动滑动
+            pagination: '.swiper-pagination'
+        })
+    });
+    $(".box_right").on("click", "div", function () {
+        if ($(this).hasClass("ed")) {
+            $(this).removeClass("ed");
+        } else {
+            $(this).addClass("ed");
+        }
+    });
+</script>
+

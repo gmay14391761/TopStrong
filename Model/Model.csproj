@@ -50,10 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewModel\ThemeNews.cs" />
     <Compile Include="T_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T_Adv.cs" />
     <Compile Include="T_Theme.cs" />
+    <Compile Include="T_News.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Easy4net\Easy4net.csproj">

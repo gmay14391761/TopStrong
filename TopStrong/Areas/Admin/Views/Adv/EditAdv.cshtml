@@ -17,29 +17,10 @@
             </div>
         </div>
         <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>类型：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="AdvType" type="radio" id="advtype-1"  value="0" @(Model.AdvType==0 ? "checked='checked'" : "")>
-					<label for="sex-1">广告</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="advtype-2"  value="1" @(Model.AdvType==1 ? "checked='checked'" : "") name="AdvType">
-					<label for="sex-2">公告</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="advtype-3"  value="2" @(Model.AdvType==2 ? "checked='checked'" : "") name="AdvType">
-					<label for="sex-2">文章</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="advtype-4"  value="3" @(Model.AdvType==3 ? "checked='checked'" : "") name="AdvType">
-					<label for="sex-2">用户协议</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="advtype-5"  value="4" @(Model.AdvType==4 ? "checked='checked'" : "") name="AdvType">
-					<label for="sex-2">关于我们</label>
-				</div>
-			</div>
+			 <label class="form-label col-xs-4 col-sm-2">跳转地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@Model.AdvLink" placeholder="" id="" name="AdvLink">
+            </div>
 		</div>
 
         <div class="row cl">

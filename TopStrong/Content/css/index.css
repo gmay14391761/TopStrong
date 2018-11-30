@@ -1,0 +1,67 @@
+﻿
+
+.ThemeMain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .ThemeMain a {
+        width: 48%;
+        margin-top: 10px;
+    }
+
+    .ThemeMain img {
+        height: 90px;
+        width: 100%;
+    }
+
+.ThemeList {
+    margin: 10px;
+    margin-bottom: 60px;
+}
+
+    .ThemeList .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .ThemeList .title .title-left {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .ThemeList .title i {
+            width: 6px;
+            height: 20px;
+            background: #30c2b0;
+            margin-right: 10px;
+        }
+
+.title-right {
+    color: #b3b3b3;
+}
+
+.newslist {
+    background-color: #fff;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+    .newslist img {
+        width: 100%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .newslist a {
+        border-radius: 5px;
+        float: left;
+    }
+
+.newslist-txt {
+    line-height: 35px;
+    margin-left: 10px;
+}

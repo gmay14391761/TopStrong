@@ -26,8 +26,8 @@ namespace Entity
         [Column(Name = "AdvImg")]
         public string AdvImg { get; set; }
 
-        [Column(Name = "AdvType")]
-        public int AdvType { get; set; }
+        [Column(Name = "AdvLink")]
+        public string AdvLink { get; set; }
 
         [Column(Name = "SORT")]
         public int? SORT { get; set; }
