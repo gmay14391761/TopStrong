@@ -23,6 +23,9 @@ namespace Entity
         [Column(Name = "NewsTitle")]
         public string NewsTitle { get; set; }
 
+        [Column(Name = "NewsSmallTitle")]
+        public string NewsSmallTitle { get; set; }
+
         [Column(Name = "NewsImg")]
         public string NewsImg { get; set; }
 
@@ -34,6 +37,9 @@ namespace Entity
 
         [Column(Name = "NewsDetail")]
         public string NewsDetail { get; set; }
+
+        [Column(Name = "NewsClickNum")]
+        public int NewsClickNum { get; set; }
 
     }
 }

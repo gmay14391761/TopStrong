@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = ViewBag.ThemeName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var AdvList = ViewBag.AdvList as List<Entity.T_Adv>;
+    var ThemeID = Request["ThemeID"];
+}
+<link href="/Content/css/Theme.css" rel="stylesheet" />
+<script src="/Content/swiper/swiper.js"></script>
+<link href="/Content/swiper/swiper.css" rel="stylesheet">
+<link href="/Content/swiper/swiper.min.css" rel="stylesheet">
+@if (AdvList != null && AdvList.Count > 0)
+{
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            @foreach (var item in AdvList)
+            {
+                <div class="swiper-slide" style="width: 640px;">
+                    <a href="@item.AdvLink">
+                        <img src="/upload/@item.AdvImg" border="0" style="width: 100%;"></a>
+                </div>
+            }
+
+        </div>
+        <div class="swiper-pagination"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div>
+    </div>
+}
+
+<div class="typemain">
+    <div class="typebtn">
+        <div class="typehot" onclick="gettype(0)">最热</div>
+        <div class="typenew" onclick="gettype(1)">最新</div>
+    </div>
+    <img class="searchbtn" onclick="location.href='/News/NewsSearch?ThemeID=@ThemeID&ThemeName=@ViewBag.ThemeName'" src="~/Content/Image/select_bgicon.png" />
+
+</div>
+
+<div class="detail-content">
+    @*<div class="listmain">
+        <div class="list-item">
+            <img src="/UpLoad/20181130121942513.jpg" />
+            <div class="list-right">
+                <div class="txttitle">把两房一厅打造成日式住宅,原木色搭配必学</div>
+                <div class="txtsmall">日式原木风,享受那股静谧</div>
+                <div class="list-time">
+                    <div>2018-05-09</div>
+                    <div>X</div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+</div>
+<script>
+    $(function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: 5000,//可选选项，自动滑动
+            pagination: '.swiper-pagination'
+        });
+
+        $(".typehot").css({ "color": "#30c2b0" });
+        $(".detail-content").html("");
+        page = 1;
+        isread = true;
+        GetThemeNews();
+    });
+
+
+    function gettype(tp) {
+        $(".typehot").css({ "color": "#808080" });
+        $(".typenew").css({ "color": "#808080" });
+        if (tp == 0)
+            $(".typehot").css({ "color": "#30c2b0" });
+        if (tp == 1)
+            $(".typenew").css({ "color": "#30c2b0" });
+        $(".detail-content").html("");
+        page = 1;
+        isread = true;
+        type = tp;
+        GetThemeNews();
+    }
+
+    var page = 1;
+    var isread = true;
+    var type = 0;
+    var isload = false;
+    function GetThemeNews() {
+        isload = true;
+        if (isread) {
+            $.getJSON("/Theme/GetThemeNews", { tid: '@ThemeID', page: page, type: type }, function (json) {
+                isload = false;
+                if (json.status == 1000) {
+                    page = json.page;
+                    var html = '<div class="listmain">';
+                    for (var i = 0; i < json.list.length; i++) {
+                        html += '<div onclick=\"location.href=\'/News/NewsDetail?ID=' + json.list[i].ID + '&ThemeName=@ViewBag.ThemeName\'\">'
+                        html += '<div class="list-item">'
+                        html += '<img src="/UpLoad/' + json.list[i].NewsImg + '" />'
+                        html += '<div class="list-right">'
+                        html += '<div class="txttitle">' + json.list[i].NewsTitle + '</div>'
+                        html += '<div class="txtsmall">' + json.list[i].NewsSmallTitle + '</div>'
+                        html += '<div class="list-time">'
+                        html += '<div>' + json.list[i].CREATEDATE.replace("T", " ") + '</div>'
+                        html += '<div></div>'
+                        html += '</div>'
+                        html += '</div>'
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                    $(".detail-content").append(html);
+                } else { isread = false; }
+            })
+        }
+    }
+
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();    //滚动条距离顶部的高度  
+        var scrollHeight = $(document).height();   //当前页面的总高度  
+        var clientHeight = $(this).height();    //当前可视的页面高度  
+        if (scrollTop + clientHeight >= scrollHeight) {   //距
+            if (!isload) {
+                GetChangeInOutInfo();
+            }
+        }
+    })
+
+
+</script>

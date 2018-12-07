@@ -1,0 +1,40 @@
+﻿@{
+    var title = ViewBag.Title;
+}
+<style>
+    .top {
+        display: flex;
+        flex-direction: row;
+        background-color: #fff;
+        height: 33px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .topitem {
+        width: 33.33%;
+    }
+
+    .topback {
+        display: none;
+        line-height: 33px;
+        margin-left: 10px;
+    }
+
+    .toptitle {
+        text-align: center;
+        line-height: 33px;
+        font-size: 15px;
+        color: #30c2b0;
+    }
+</style>
+<div class="top">
+    <div class="topitem">
+        <div class="topback" id="topback"><</div>
+    </div>
+    <div class="topitem">
+        <div class="toptitle" id="toptitle">@title</div>
+    </div>
+    <div class="topitem">
+        <div class="topmenu" id="topmenu"></div>
+    </div>
+</div>

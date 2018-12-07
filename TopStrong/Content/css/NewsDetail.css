@@ -1,0 +1,38 @@
+﻿body {
+    background-color: #fff;
+}
+
+.detailmain {
+    margin: 10px;
+}
+
+.title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.stitle {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.newstime {
+    text-align: center;
+    font-size: 12px;
+    color: #c1bfbf;
+}
+
+.detail {
+    margin-top: 10px;
+    margin-bottom:60px;
+}
+
+    .detail img {
+        width: 100%;
+    }
+
+.topback {
+    display: block;
+}

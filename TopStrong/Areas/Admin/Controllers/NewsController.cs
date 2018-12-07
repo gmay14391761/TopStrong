@@ -62,6 +62,7 @@ namespace TopStrong.Areas.Admin.Controllers
             DBHelper db = DBHelper.getInstance();
             string ID = Utils.SqlTextClear(Request["ID"].ToString());
             string NewsTitle = Utils.SqlTextClear(Request.Form["NewsTitle"].ToString());
+            string NewsSmallTitle = Utils.SqlTextClear(Request.Form["NewsSmallTitle"].ToString());
             string NewsImg = Utils.SqlTextClear(Request.Form["NewsImg"].ToString());
             string NewsContent = Utils.SqlTextClear(Request.Form["txtcontent"].ToString());
             string Sort = Utils.SqlTextClear(Request.Form["Sort"].ToString());
@@ -76,6 +77,7 @@ namespace TopStrong.Areas.Admin.Controllers
                 News.CREATEDATE = DateTime.Now;
             }
             News.NewsTitle = NewsTitle;
+            News.NewsSmallTitle = NewsSmallTitle;
             News.NewsImg = NewsImg;
             News.SORT = Convert.ToInt16(Sort == "" ? "0" : Sort);
             News.NewsDetail = NewsContent;

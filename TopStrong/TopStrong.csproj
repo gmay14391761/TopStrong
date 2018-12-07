@@ -136,6 +136,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdvController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DesignController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileUploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\IframeController.cs" />
     <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
@@ -152,12 +153,15 @@
     <Compile Include="Content\ui\lib\ueditor\1.4.3\net\App_Code\NotSupportedHandler.cs" />
     <Compile Include="Content\ui\lib\ueditor\1.4.3\net\App_Code\PathFormater.cs" />
     <Compile Include="Content\ui\lib\ueditor\1.4.3\net\App_Code\UploadHandler.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DesignController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\JsonList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +171,13 @@
     <Content Include="Areas\Admin\UI\images\8bcLQqF.png" />
     <Content Include="Areas\Admin\UI\images\cloud.jpg" />
     <Content Include="Content\css\design.css" />
+    <Content Include="Content\css\NewsDetail.css" />
+    <Content Include="Content\css\NewsList.css" />
+    <Content Include="Content\css\NewsSearch.css" />
+    <Content Include="Content\css\Theme.css" />
     <Content Include="Content\Image\box_bg_ed.png" />
     <Content Include="Content\Image\box_bg.png" />
+    <Content Include="Content\Image\select_bgicon.png" />
     <Content Include="Content\Image\home.png" />
     <Content Include="Content\Image\home2.png" />
     <Content Include="Content\Image\sj2.png" />
@@ -1292,6 +1301,7 @@
     <Content Include="Areas\Admin\Views\Theme\EditTheme.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\EditNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Design\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -1321,9 +1331,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Design\Index.cshtml" />
+    <Content Include="Views\Base\Top.cshtml" />
+    <Content Include="Views\Theme\Index.cshtml" />
+    <Content Include="Views\News\NewsDetail.cshtml" />
+    <Content Include="Views\News\NewsSearch.cshtml" />
+    <Content Include="Views\News\NewsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="UpLoad\" />
   </ItemGroup>
   <ItemGroup>

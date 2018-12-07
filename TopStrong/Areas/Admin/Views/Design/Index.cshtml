@@ -1,26 +1,25 @@
 ﻿@{
-    ViewBag.Title = "文章管理";
+    ViewBag.Title = "提交管理";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var key = ViewBag.key;
-    var selNewstype = ViewBag.selNewstype;   
+    var type = ViewBag.type;   
 }
-@model Easy4net.Common.PageResult<Entity.T_News>
+@model Easy4net.Common.PageResult<Model.NewModel.DesignDetail>
 
 <script src="~/Content/ui/lib/layer/2.4/layer.img.preview.js"></script>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文章管理 <span class="c-gray en">&gt;</span> 文章列表 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 提交管理 <span class="c-gray en">&gt;</span> 提交管理列表 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    @using (Html.BeginForm("Index", "News", FormMethod.Post, new { @class = "addNews validforms", @onsubmit = "return setContent()" }))
+    @using (Html.BeginForm("Index", "Design", FormMethod.Post, new { @class = "addNews validforms", @onsubmit = "return setContent()" }))
     {
         <div class="text-c">
 
-            <input type="text" name="keyword" value="@key" id="" placeholder=" 标题" style="width: 250px" class="input-text">
+            <input type="text" name="keyword" value="@key" id="" placeholder="姓名/手机/选项" style="width: 250px" class="input-text">
             <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
         </div>
     }
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-            <a class="btn btn-primary radius" data-title="添加文章" onclick="News_edit('编辑','/admin/News/EditNews','')" href="javascript:;">
-                <i class="Hui-iconfont">&#xe600;</i> 添加文章</a></span> @*<span class="r">共有数据：<strong>54</strong> 条</span>*@
+        </span>@*<span class="r">共有数据：<strong>54</strong> 条</span>*@
     </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -28,11 +27,12 @@
                 <tr class="text-c">
                     <th width="25">
                         <input type="checkbox" name="" value=""></th>
-                    <th width="80">排序</th>
-                    <th>标题</th>
+                    <th width="80">单号</th>
                     <th width="80">创建时间</th>
-                    <th width="80">图片</th>
-                    <th width="80">点击数</th>
+                    <th width="80">姓名</th>
+                    <th width="80">手机号</th>
+                    <th width="80">选项</th>
+                    <th width="80">状态</th>
                     <th width="120">操作</th>
                 </tr>
             </thead>
@@ -43,21 +43,26 @@
                     {
                     <tr class="text-c">
                         <td>
-                            <input type="checkbox" value="@item.ID" name="cbNews"></td>
-                        <td>@item.SORT</td>
-                        <td>@item.NewsTitle</td>
-                        <td>@item.CREATEDATE</td>
-                        <td>
-                            <img src="/upload/@item.NewsImg" style='width: 50px;'  id="@item.ID" onclick="imgPreview(&quot;@item.ID&quot;)" tips="点击查看大图"/></td>
-                        <td>@item.NewsClickNum</td>
-                        <td class="f-14 td-manage"><a style="text-decoration: none" class="ml-5" onclick="News_edit('编辑','/admin/News/EditNews','?id=@item.ID')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration: none" class="ml-5" onclick="News_del(this,'/Admin/News/DelNews','?id=@item.ID')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                            <input type="checkbox" value="@item.ID" name="cbDesign"></td>
+                        <td>@item.DesignNo</td>
+                        <td>@item.CreateDate</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Sele_Item</td>
+                        <td>@(item.IsReturn == 0 ? "未回访" : "已回访")</td>
+                        <td class="f-14 td-manage">
+                            @if (item.IsReturn == 0)
+                            {
+                                <a style="text-decoration: none" class="ml-5" onclick="ReturnDesign('回访','/admin/Design/ReturnDesign','?id=@item.ID')" href="javascript:;" title="回访">
+                                    <i class="Hui-iconfont">&#xe6df;</i></a> 
+                            }<a style="text-decoration: none" class="ml-5" onclick="Design_del(this,'/Admin/Design/DelDesign','?id=@item.ID')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                     }
                 }
             </tbody>
             <tfoot class="hide-if-no-paging">
                 <tr>
-                    <td colspan="7" class="text-center">
+                    <td colspan="8" class="text-center">
                         <div id="pagination"></div>
                     </td>
                 </tr>
@@ -84,33 +89,15 @@
                 }(),
                 jump: function (e, first) { 
                     if (!first) { 
-                        location.href = '?page=' + e.curr+'&keyword=@key';
+                        location.href = '?page=' + e.curr+'&keyword=@key&type=@type';
                     }
                 }
             });
         });
 
-        /*资讯-添加*/
-        function News_add(title,url,w,h){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url
-            });
-            layer.full(index);
-        }
-        /*资讯-编辑*/
-        function News_edit(title,url,id,w,h){
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url+id
-            });
-            layer.full(index);
-        }
         function datadel()
         {
-            var cbdata=document.getElementsByName("cbNews");
+            var cbdata=document.getElementsByName("cbDesign");
             var ids=""
             for(var i=0;i<cbdata.length;i++)
             {
@@ -121,7 +108,7 @@
             { layer.confirm('确认要删除吗？',function(index){
                 $.ajax({
                     type: 'POST',
-                    url:"/Admin/News/DelMoreNews?ids="+ids,
+                    url:"/Admin/Design/DelMoreDesign?ids="+ids,
                     dataType: 'json',
                     success: function(data){
                         if(data=="1")
@@ -146,7 +133,7 @@
             }
         }
         /*资讯-删除*/
-        function News_del(obj,url,id){
+        function Design_del(obj,url,id){
             layer.confirm('确认要删除吗？',function(index){
                 $.ajax({
                     type: 'POST',
@@ -168,6 +155,31 @@
                     },
                 });		
             });
+        }
+
+        function ReturnDesign(obj,url,id)
+        {
+            layer.confirm('是否已回访？',function(index){
+            $.ajax({
+                type: 'POST',
+                url:url+id,
+                dataType: 'json',
+                success: function(data){
+                    if(data=="1")
+                    {
+                        layer.msg('操作成功!',{icon:1,time:1000});
+                        location.reload();
+                    }
+                    else
+                    {
+                        layer.msg('操作失败!',{icon:1,time:1000});
+                    }
+                },
+                error:function(data) {
+                    layer.msg('操作失败!',{icon:1,time:1000});
+                },
+            });		
+        });
         }
     </script>
 }

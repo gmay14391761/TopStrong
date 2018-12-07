@@ -30,13 +30,13 @@
 
 <div class="msgmain">
     <div class="inputtxt">
-        <input class="txtone" type="text" placeholder="请输入姓名" /><br />
+        <input class="txtone" type="text" id="username" placeholder="请输入姓名" /><br />
     </div>
     <div class="inputtxt">
-        <input class="txtone" type="text" placeholder="请输入手机号" />
+        <input class="txtone" type="text" id="phone" placeholder="请输入手机号" />
     </div>
     <div class="inputtxt">
-        <input class="txtone" style="width: 67%" type="text" placeholder="请输入验证码" />
+        <input class="txtone" id="code" name="code" style="width: 67%" type="text" placeholder="请输入验证码" />
         <input class="btncode" style="line-height: 26px!important;" type="button" value="获取验证码" />
     </div>
     <div class="box_left">
@@ -49,7 +49,7 @@
         <div>窗帘</div>
     </div>
     <div class="btnmain">
-        <a href="#" class="btnsumbit">抢0元设计</a>
+        <a href="javascript:;" id="subbtn" class="btnsumbit">抢0元设计</a>
     </div>
 </div>
 
@@ -58,6 +58,49 @@
         var mySwiper = new Swiper('.swiper-container', {
             autoplay: 5000,//可选选项，自动滑动
             pagination: '.swiper-pagination'
+        })
+
+        $("#subbtn").on("click", function () {
+            var username = $("#username").val();
+            var phone = $("#phone").val();
+            var code = $("#code").val();
+            if (username == '') {
+                alert("请输入姓名");
+                return false;
+            }
+            if (phone == '') {
+                alert("请输入手机号");
+                return false;
+            }
+            if (code == '') {
+                alert("请输入验证码");
+                return false;
+            }
+            var form = /^1[3,4,5,6,7,8]\d{9}$/;
+            if (!form.test(phone)) {
+                alert("手机号码格式不正确");
+                return false;
+            }
+            var arr = [];
+            for (var i = 0; i < $(".box_right .ed").length; i++) {
+                arr.push($(".box_right .ed").eq(i).text())
+            }
+            var sele_item = arr.join(",");
+            $.ajax({
+                type: "POST", url: "/Design/DesignSub", data: { username: username, phone: phone, code: code, sele_item: sele_item }, cache: false, dataType: 'text',
+                success: function (msg) {
+                    if (msg == "success") {
+                        alert("感谢你的提交,我们会尽快与你联系!");
+                        location.reload();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
         })
     });
     $(".box_right").on("click", "div", function () {

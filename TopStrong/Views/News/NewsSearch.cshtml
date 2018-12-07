@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = ViewBag.ThemeName;
+    var ThemeID = ViewBag.ThemeID;
+}
+<link href="/Content/css/NewsSearch.css" rel="stylesheet" />
+<div>
+    <div class="searchmain">
+        <img class="searchimg" onclick="" src="~/Content/Image/select_bgicon.png" />
+        <input id="keyword" placeholder="请输入关键字" onkeyup="showclose()" />
+        <div class="cleanbtn" onclick="cleantxt()">x</div>
+    </div>
+
+    <div class="detail-content">
+    </div>
+</div>
+<script>
+
+    $(function () {
+        $('#keyword').bind('keypress', function (event) {
+            if (event.keyCode == 13) {
+                page = 1;
+                isread = true;
+                keyword = $("#keyword").val();
+                GetThemeNews();
+            }
+
+        });
+
+    })
+
+    function showclose() {
+        var keyword = $("#keyword").val();
+        if (keyword) {
+            $(".cleanbtn").css("display", "block");
+        }
+        else {
+            $(".cleanbtn").css("display", "none");
+        }
+    }
+    function cleantxt() {
+        $("#keyword").val("");
+        $(".cleanbtn").css("display", "none");
+    }
+
+    var page = 1;
+    var isread = true;
+    var keyword = "";
+    var isload = false;
+    function GetThemeNews() {
+        isload = true;
+        if (isread) {
+            $.getJSON("/News/GetThemeNews", { tid: '@ThemeID', page: page, keyword: keyword }, function (json) {
+                isload = false;
+                if (json.status == 1000) {
+                    page = json.page;
+                    var html = '<div class="listmain">';
+                    for (var i = 0; i < json.list.length; i++) {
+                        html += '<div onclick=\"location.href=\'/News/NewsDetail?ID=' + json.list[i].ID + '&ThemeName=@ViewBag.ThemeName\'\">'
+                        html += '<div class="list-item">'
+                        html += '<img src="/UpLoad/' + json.list[i].NewsImg + '" />'
+                        html += '<div class="list-right">'
+                        html += '<div class="txttitle">' + json.list[i].NewsTitle + '</div>'
+                        html += '<div class="txtsmall">' + json.list[i].NewsSmallTitle + '</div>'
+                        html += '<div class="list-time">'
+                        html += '<div>' + json.list[i].CREATEDATE.replace("T", " ") + '</div>'
+                        html += '<div></div>'
+                        html += '</div>'
+                        html += '</div>'
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                    $(".detail-content").append(html);
+                } else { isread = false; }
+            })
+        }
+    }
+
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();    //滚动条距离顶部的高度  
+        var scrollHeight = $(document).height();   //当前页面的总高度  
+        var clientHeight = $(this).height();    //当前可视的页面高度  
+        if (scrollTop + clientHeight >= scrollHeight) {   //距
+            if (!isload) {
+                GetChangeInOutInfo();
+            }
+        }
+    })
+
+</script>

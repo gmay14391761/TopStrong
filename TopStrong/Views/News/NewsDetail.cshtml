@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = ViewBag.ThemeName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Entity.T_News
+<link href="~/Content/css/NewsDetail.css" rel="stylesheet" />
+<div class="detailmain">
+    <div class="title">@Model.NewsTitle</div>
+    <div class="stitle">@Model.NewsSmallTitle</div>
+    <div class="newstime">@Model.CREATEDATE.ToString("yyyy-MM-dd HH:mm:ss")</div>
+    <div class="detail">
+        @Html.Raw(Server.UrlDecode(Model.NewsDetail))
+    </div>
+</div>
+<script>
+    $("#topback").on("click", function () {
+        history.go(-1);
+    })
+</script>

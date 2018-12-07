@@ -32,6 +32,7 @@ namespace TopStrong.Controllers
                 foreach (var item in ThemeNewList)
                 {
                     ThemeNews tn = new ThemeNews();
+                    tn.ThemeID = item.ID;
                     tn.ThemeName = item.ThemeName;
                     string sqlnews = string.Format("select top 10 * from T_News where ThemeID='{0}'", item.ID);
                     List<T_News> newslist = db.FindBySql<T_News>(sqlnews);

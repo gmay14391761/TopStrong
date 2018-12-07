@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "首页";
+    ViewBag.Title = "顶固";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var AdvList = ViewBag.AdvList as List<Entity.T_Adv>;
     var ThemeList = ViewBag.ThemeList as List<Entity.T_Theme>;
@@ -30,7 +30,7 @@
     <div class="ThemeMain">
         @foreach (var item in ThemeList)
         {
-            <a href="#">
+            <a href="/Theme?ThemeID=@item.ID&ThemeName=@item.ThemeName">
                 <img src="/UpLoad/@item.ThemeImg" />
             </a>
         }
@@ -45,13 +45,13 @@
             <div class="title-left">
                 <i></i><span>@item.ThemeName</span>
             </div>
-            <div class="title-right">更多></div>
+            <div class="title-right" onclick="location.href='/News/NewsList?ThemeID=@item.ThemeID&ThemeName=@item.ThemeName'">更多></div>
         </div>
         @if (item.News != null && item.News.Count > 0)
         {
             foreach (var item2 in item.News)
             {
-            <div class="newslist">
+            <div class="newslist" onclick="location.href='/News/NewsDetail?ID=@item2.ID&ThemeName=@item.ThemeName'">
                 <img src="/UpLoad/@item2.NewsImg"/>
                 <div class="newslist-txt">@item2.NewsTitle</div>
             </div>

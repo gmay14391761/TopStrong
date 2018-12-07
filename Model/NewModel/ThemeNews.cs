@@ -8,6 +8,7 @@ namespace Model.NewModel
 {
     public class ThemeNews
     {
+        public string ThemeID { get; set; }
         public string ThemeName { get; set; }
         public List<T_News> News { get; set; }
     }
