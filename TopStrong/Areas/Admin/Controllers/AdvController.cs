@@ -97,7 +97,7 @@ namespace TopStrong.Areas.Admin.Controllers
             {
                 msg = "error";
             }
-            return RedirectToAction("index", "Adv", new { res = msg });
+            return Content("<script>parent.location.reload();layer_close();</script>");
         }
 
         public ActionResult DelAdv(string id)

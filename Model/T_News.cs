@@ -26,6 +26,9 @@ namespace Entity
         [Column(Name = "NewsSmallTitle")]
         public string NewsSmallTitle { get; set; }
 
+        [Column(Name = "Classifylist")]
+        public string Classifylist { get; set; }
+
         [Column(Name = "NewsImg")]
         public string NewsImg { get; set; }
 
@@ -41,6 +44,8 @@ namespace Entity
         [Column(Name = "NewsClickNum")]
         public int NewsClickNum { get; set; }
 
+        [Column(Name = "Classify",IsInsert=false,IsUpdate=false)]
+        public List<T_Classify> Classify { get; set; }
     }
 }
 

@@ -5,7 +5,62 @@
 }
 
 @model Entity.T_News
+<style>
+    .box {
+        width: 80%;
+        background-color: #fff;
+        margin: 0 auto;
+    }
 
+        .box .title {
+            line-height: 24px;
+            padding: 5px 0;
+        }
+
+        .box ul {
+            display: flex;
+            flex-direction: row;
+        }
+
+            .box ul li {
+                border-radius: 4px;
+                background: #f5f5f5;
+                margin: 10px 0 0 4%;
+                line-height: 30px;
+                text-align: center;
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+    .classifymain {
+        height: 400px;
+        overflow: auto;
+    }
+
+        .classifymain .box li.on {
+            background: #30c2b0;
+            color: #fff;
+        }
+
+    .select_xuan i {
+        padding: 0 26px 0 10px;
+        border-radius: 4px;
+        background: #ffa502 url(/Content/Image/close.png) no-repeat right 7px center;
+        background-size: 10px;
+        color: #fff;
+        margin: 10px 0 10px 10px;
+        line-height: 30px;
+        float: left;
+        font-size: 14px;
+    }
+
+    .msgbtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        bottom: 10px;
+    }
+</style>
 <div class="page-container">
     @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { @class = "form form-horizontal", @onsubmit = "return setContent()" }))
     {
@@ -33,7 +88,7 @@
                         {
                             foreach (var item in themeList)
                             {
-                                <option @(item.ID==Model.NewsType?"selected":"") value="@item.ID">@item.ThemeName</option>
+                            <option @(item.ID == Model.NewsType ? "selected" : "") value="@item.ID">@item.ThemeName</option>
                             }
                         }
                     </select>
@@ -41,6 +96,24 @@
             </div>
         </div>
 
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <div onclick="seleclassify()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 选择分类</div>
+                <div class="select_xuan">
+                    @{
+                        if (Model.Classify != null && Model.Classify.Count > 0)
+                        {
+                            foreach (var item in Model.Classify)
+                            {
+                        <i value="@item.AID">@item.ClassifyName</i>
+                            }
+                        }
+                    }
+                </div>
+                <input type="hidden" name="Classifylist" value="@Model.Classifylist" id="classifylist" />
+            </div>
+        </div>
+        
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">排序值：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -88,6 +161,7 @@
     <script type="text/javascript" src="~/Content/ui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
     <script type="text/javascript" src="~/Content/ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
     <script src="~/Content/ui/lib/layer/2.4/layer.img.preview.js"></script>
+    <script src="~/Content/MessageBox.js?v=1.1"></script>
     <script type="text/javascript">
         var test = 0;
         $(function () {
@@ -152,6 +226,95 @@
                         alert(data);
                 }
             });
+        }
+
+        function seleclassify() {
+
+            var str = $("#classifylist").val().split('_');
+            var classstr = "";
+            $.ajax({
+                url: "/admin/Classify/GetClassify",
+                type: "post",
+                // Form数据
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data) {
+                        var json = JSON.parse(data);
+                        var html = '<div class="classifymain">'
+                        console.log(json);
+                        for (var i = 0; i < json.length; i++) {
+                            var classstr = "";
+                            html += '<div class="box">'
+                            html += '<div class="title">' + json[i].ClassifyName + '</div>';
+                            html += '<ul>';
+                            for (var k = 0; k < json[i].list.length; k++) {
+                                for (var j = 0; j < str.length; j++) {
+                                    if (str[j] && str[j] == json[i].list[k].AID) {
+                                        classstr = 'class="on"'
+                                    }
+                                }
+                                html += '<li ' + classstr + ' value="' + json[i].list[k].AID + '">' + json[i].list[k].ClassifyName + '</li>'
+                                classstr = "";
+                            }
+                            html += '</ul>'
+                            html += '</div>'
+                        }
+                        html += '</div>';
+                        html += '<div class="msgbtn"><div class="btn btn-primary radius" onclick="btn_OK()"><i class="Hui-iconfont">&#xe632;</i>确定</div><div class="btn btn-default radius" style="margin-left: 20px;" onclick="btn_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</div></div>';
+                        MessageBoxShow("分类", html, "", "500px");
+
+                        /* 筛选类别样式添加 */
+                        $('.classifymain').on('click', 'li', function () {
+                            if ($(this).attr('class') == 'on') {
+                                $(this).removeClass('on');
+                            } else {
+                                $(this).addClass('on').siblings('li').removeClass('on');
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function btn_OK() {
+            var param = '';
+            var list = "";
+            for (var i = 0; i < $('.classifymain .box').length; i++) {
+                var id = $('.classifymain .box').eq(i).find('.on').val();
+                if (id == undefined) {
+                    continue;
+                }
+                else {
+                    list += id + "_"
+                    //param += 'tag[]=' + $('.classifymain .box').eq(i).find('.on').val() + '&';
+                    param += '<i value="' + $('.classifymain .box').eq(i).find('.on').val() + '">' + $('.classifymain .box').eq(i).find('.on').text() + '</i>'
+                }
+            }
+            $(".select_xuan").empty().append(param);
+            $("#classifylist").val(list);
+            hideMask(1)
+        }
+
+        /* 关闭筛选项 */
+        $('.select_xuan').on('click', 'i', function () {
+            var tag_id = $(this).attr('value');
+            var param = $("#classifylist").val();
+            var newparamtmp = ("_" + param).replace("_" + tag_id + "_", "");
+            var newparamstr = newparamtmp.split('_');
+            var newparam = "";
+            for (var j = 0; j < newparamstr.length; j++) {
+                if (newparamstr[j]) {
+                    newparam += newparamstr[j] + "_"
+                }
+            }
+            $(this).remove();
+            $("#classifylist").val(newparam);
+        });
+
+        function btn_close() {
+            hideMask(1)
         }
     </script>
 }

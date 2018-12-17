@@ -136,6 +136,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdvController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClassifyController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileUploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\IframeController.cs" />
@@ -177,6 +178,7 @@
     <Content Include="Content\css\Theme.css" />
     <Content Include="Content\Image\box_bg_ed.png" />
     <Content Include="Content\Image\box_bg.png" />
+    <Content Include="Content\Image\close.png" />
     <Content Include="Content\Image\select_bgicon.png" />
     <Content Include="Content\Image\home.png" />
     <Content Include="Content\Image\home2.png" />
@@ -184,6 +186,7 @@
     <Content Include="Content\Image\sj.png" />
     <Content Include="Content\Image\top_1.jpg" />
     <Content Include="Content\css\index.css" />
+    <Content Include="Content\MessageBox.js" />
     <Content Include="Content\swiper\swiper.css" />
     <Content Include="Content\swiper\swiper.js" />
     <Content Include="Content\swiper\swiper.min.css" />
@@ -1302,6 +1305,8 @@
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\EditNews.cshtml" />
     <Content Include="Areas\Admin\Views\Design\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Classify\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Classify\EditClassify.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

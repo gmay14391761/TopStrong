@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = ViewBag.ThemeName;
     var ThemeID = ViewBag.ThemeID;
+    var clalist = ViewBag.clalist as List<Model.NewModel.ClassifylistItem>;
 }
 <link href="/Content/css/NewsSearch.css" rel="stylesheet" />
 <div>
@@ -9,7 +10,22 @@
         <input id="keyword" placeholder="请输入关键字" onkeyup="showclose()" />
         <div class="cleanbtn" onclick="cleantxt()">x</div>
     </div>
-
+    @if (clalist != null && clalist.Count > 0)
+    {
+        <div class="classifylist">
+            @foreach (var item in clalist)
+            {
+                <select style="border-color: #d2d2d2;" onchange="selectchange(this) ">
+                    <option value="top_@item.T_Classify.AID">@item.T_Classify.ClassifyName</option>
+                    @foreach (var item2 in item.T_ClassifyItem)
+                    {
+                        <option value="@item2.AID">@item2.ClassifyName</option>
+                    }
+                </select>
+                
+            }
+        </div>
+    }
     <div class="detail-content">
     </div>
 </div>
@@ -21,6 +37,8 @@
                 page = 1;
                 isread = true;
                 keyword = $("#keyword").val();
+                selectitem();
+                $(".detail-content").empty();
                 GetThemeNews();
             }
 
@@ -42,14 +60,31 @@
         $(".cleanbtn").css("display", "none");
     }
 
+    function selectchange(elem) {
+        page = 1;
+        isread = true;
+        keyword = $("#keyword").val();
+        selectitem();
+        $(".detail-content").empty();
+        GetThemeNews();
+    }
+
+    function selectitem() {
+        selecttype="";
+        for (var i = 0; i < $(".classifylist select").length; i++) {
+            selecttype += $(".classifylist select")[i].value + "|";
+        }
+    }
+
     var page = 1;
     var isread = true;
     var keyword = "";
+    var selecttype="";
     var isload = false;
     function GetThemeNews() {
         isload = true;
         if (isread) {
-            $.getJSON("/News/GetThemeNews", { tid: '@ThemeID', page: page, keyword: keyword }, function (json) {
+            $.getJSON("/News/GetThemeNews", { tid: '@ThemeID', page: page, selecttype: selecttype, keyword: keyword }, function (json) {
                 isload = false;
                 if (json.status == 1000) {
                     page = json.page;
@@ -71,7 +106,7 @@
                     }
                     html += '</div>';
                     $(".detail-content").append(html);
-                } else { isread = false; }
+                } else { $(".detail-content").empty().append("<div style='text-align: center;color: #929292;'>暂无数据</div>"); isread = false; }
             })
         }
     }

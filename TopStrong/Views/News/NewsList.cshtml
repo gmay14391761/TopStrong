@@ -29,6 +29,7 @@
                 page = 1;
                 isread = true;
                 keyword = $("#keyword").val();
+                $(".detail-content").empty();
                 GetThemeNews();
             }
 
@@ -79,23 +80,6 @@
                     page = json.page;
                     var html = '<div class="listmain">';
                     for (var i = 0; i < json.list.length; i++) {
-                        html += '<div class="list-item"  onclick=\"location.href=\'/News/NewsDetail?ID=' + json.list[i].ID + '&ThemeName=@ViewBag.ThemeName\'\">';
-                        html += '<img src="/UpLoad/' + json.list[i].NewsImg + '" />';
-                        html += '<div class="list-right">';
-                        html += '<div class="txttitle">' + json.list[i].NewsTitle + '</div>';
-                        html += '</div>';
-                        html += '</div>';
-
-
-
-                        html += '<div class="list-item"  onclick=\"location.href=\'/News/NewsDetail?ID=' + json.list[i].ID + '&ThemeName=@ViewBag.ThemeName\'\">';
-                        html += '<img src="/UpLoad/' + json.list[i].NewsImg + '" />';
-                        html += '<div class="list-right">';
-                        html += '<div class="txttitle">' + json.list[i].NewsTitle + '</div>';
-                        html += '</div>';
-                        html += '</div>';
-
-
                         html += '<div class="list-item"  onclick=\"location.href=\'/News/NewsDetail?ID=' + json.list[i].ID + '&ThemeName=@ViewBag.ThemeName\'\">';
                         html += '<img src="/UpLoad/' + json.list[i].NewsImg + '" />';
                         html += '<div class="list-right">';

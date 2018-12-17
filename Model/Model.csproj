@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewModel\ClassifylistItem.cs" />
+    <Compile Include="NewModel\ClassifyModel.cs" />
     <Compile Include="NewModel\DesignDetail.cs" />
     <Compile Include="NewModel\ThemeNews.cs" />
     <Compile Include="T_User.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="T_Theme.cs" />
     <Compile Include="T_News.cs" />
     <Compile Include="T_Design.cs" />
+    <Compile Include="T_Classify.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Easy4net\Easy4net.csproj">

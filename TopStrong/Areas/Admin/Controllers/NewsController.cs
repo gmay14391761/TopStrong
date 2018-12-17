@@ -48,6 +48,21 @@ namespace TopStrong.Areas.Admin.Controllers
             T_News na = new T_News();
             if (!string.IsNullOrWhiteSpace(id))
                 na = db.FindOneByID<T_News>("T_News", id);
+            if (!string.IsNullOrWhiteSpace(na.Classifylist))
+            {
+                string[] str = na.Classifylist.Split('_');
+                string strlist = "";
+                foreach (var item in str)
+                {
+                    strlist += item + ",";
+                }
+                if (strlist != "")
+                {
+                    string classifysql=string.Format("select * from T_Classify where AID in ({0})",strlist.Substring(0,strlist.Length-1));
+                    List<T_Classify> t_c = db.FindBySql<T_Classify>(classifysql);
+                    na.Classify = t_c;
+                }
+            }
             string sql = string.Format("select * from T_Theme where Deleted=0");
             List<T_Theme> themeList = db.FindBySql<T_Theme>(sql);
             ViewBag.themeList = themeList;
@@ -63,6 +78,7 @@ namespace TopStrong.Areas.Admin.Controllers
             string ID = Utils.SqlTextClear(Request["ID"].ToString());
             string NewsTitle = Utils.SqlTextClear(Request.Form["NewsTitle"].ToString());
             string NewsSmallTitle = Utils.SqlTextClear(Request.Form["NewsSmallTitle"].ToString());
+            string Classifylist = Utils.SqlTextClear(Request.Form["Classifylist"].ToString());
             string NewsImg = Utils.SqlTextClear(Request.Form["NewsImg"].ToString());
             string NewsContent = Utils.SqlTextClear(Request.Form["txtcontent"].ToString());
             string Sort = Utils.SqlTextClear(Request.Form["Sort"].ToString());
@@ -78,6 +94,7 @@ namespace TopStrong.Areas.Admin.Controllers
             }
             News.NewsTitle = NewsTitle;
             News.NewsSmallTitle = NewsSmallTitle;
+            News.Classifylist = Classifylist;
             News.NewsImg = NewsImg;
             News.SORT = Convert.ToInt16(Sort == "" ? "0" : Sort);
             News.NewsDetail = NewsContent;
@@ -97,7 +114,7 @@ namespace TopStrong.Areas.Admin.Controllers
             {
                 msg = "error";
             }
-            return RedirectToAction("index", "News", new { res = msg });
+            return Content("<script>parent.location.reload();layer_close();</script>");
         }
 
         public ActionResult DelNews(string id)
