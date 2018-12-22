@@ -23,7 +23,9 @@
     margin-right: 10px;
 }
 
-
+.classifylist {
+    background-color:#fff;
+}
 
 .list-item {
     height: 80px;

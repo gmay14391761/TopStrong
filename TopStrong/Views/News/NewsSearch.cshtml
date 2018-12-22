@@ -15,7 +15,7 @@
         <div class="classifylist">
             @foreach (var item in clalist)
             {
-                <select style="border-color: #d2d2d2;" onchange="selectchange(this) ">
+                <select style="border: 0px;height: 30px;margin-left: 10px;" onchange="selectchange(this) ">
                     <option value="top_@item.T_Classify.AID">@item.T_Classify.ClassifyName</option>
                     @foreach (var item2 in item.T_ClassifyItem)
                     {
@@ -44,6 +44,12 @@
 
         });
 
+        page = 1;
+        isread = true;
+        keyword = $("#keyword").val();
+        selectitem();
+        $(".detail-content").empty();
+        GetThemeNews();
     })
 
     function showclose() {

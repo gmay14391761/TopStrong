@@ -15,3 +15,4 @@ E:\mo\TopStrong\Easy4net\bin\Debug\mysql.data.dll
 E:\mo\TopStrong\Easy4net\obj\Debug\Easy4net.csprojResolveAssemblyReference.cache
 E:\mo\TopStrong\Easy4net\obj\Debug\Easy4net.dll
 E:\mo\TopStrong\Easy4net\obj\Debug\Easy4net.pdb
+F:\网站\TopStrong\Easy4net\obj\Debug\Easy4net.csprojResolveAssemblyReference.cache
